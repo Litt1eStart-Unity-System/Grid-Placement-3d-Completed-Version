@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum PlacementDirection
 {
+    NONE,
     RIGHT,
     DOWN,
     LEFT,
@@ -21,6 +22,7 @@ public class GridHolder : MonoBehaviour
     [SerializeField] private PlacementDirection direction;
     [SerializeField] private GridOperator gridOperator;
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] private LayerMask buildingLayer;
     [SerializeField] private int placementIndex = 0;
 
     private BuildingSO buildingData;
@@ -38,7 +40,7 @@ public class GridHolder : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
-
+        gridOperator = GameManager.Instance.currentOperator;
         switch (gridOperator)
         {
             case GridOperator.PLACEMENT:
@@ -69,6 +71,18 @@ public class GridHolder : MonoBehaviour
                 }
                 break;
             case GridOperator.DELETE:
+                visualizer.ClearOverlayModel();
+                if (Input.GetMouseButtonDown(1))
+                {
+                    if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, buildingLayer))
+                    {
+                        Vector3 hitPosition = hitInfo.point;
+                        Vector2Int hitGridPosition = gridSystem.GetGridPositionFromWorldPosition(hitPosition);
+
+                        gridSystem.DeleteBuildingOnGrid(hitGridPosition);
+                        Destroy(hitInfo.collider.gameObject);
+                    }
+                }
                 break;
         }
         

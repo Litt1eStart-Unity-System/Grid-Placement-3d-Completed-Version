@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GridSystem gridSystem {  get; private set; }
     public GridHolder gridHolder;
     public PlacementDirection direction;
+    public GridOperator currentOperator;
     [SerializeField] private GridVisualizer visualizer;
     private void Awake()
     {

@@ -7,6 +7,7 @@ public class GridObject
     public Vector2Int gridPosition;
     public BuildingSO buildingData;
     public GridObject ref_grid;
+    public PlacementDirection direction;
 
     public GridObject(Vector2Int _gridPosition)
     {
@@ -18,6 +19,7 @@ public class GridObject
     {
         this.ref_grid = null;
         this.buildingData = null;
+        this.direction = PlacementDirection.NONE;
     }
     
     public void SetRefGrid(GridObject headGrid)

@@ -54,6 +54,7 @@ public class GridSystem
                     {
                         Vector2Int currnetGridPosition = new Vector2Int(x, z);
                         gridDict[currnetGridPosition].ref_grid = headGrid;
+                        gridDict[currnetGridPosition].direction = direction;
                         visualizer.UpdateCellData(currnetGridPosition, visualizer.usedCellColor, gridDict[currnetGridPosition].ref_grid.buildingData);
                     }
                 }
@@ -65,6 +66,7 @@ public class GridSystem
                     {
                         Vector2Int currnetGridPosition = new Vector2Int(x, z);
                         gridDict[currnetGridPosition].ref_grid = headGrid;
+                        gridDict[currnetGridPosition].direction = direction;
                         visualizer.UpdateCellData(currnetGridPosition, visualizer.usedCellColor, gridDict[currnetGridPosition].ref_grid.buildingData);
                     }
                 }
@@ -76,6 +78,7 @@ public class GridSystem
                     {
                         Vector2Int currnetGridPosition = new Vector2Int(x, z);
                         gridDict[currnetGridPosition].ref_grid = headGrid;
+                        gridDict[currnetGridPosition].direction = direction;
                         visualizer.UpdateCellData(currnetGridPosition, visualizer.usedCellColor, gridDict[currnetGridPosition].ref_grid.buildingData);
                     }
                 }
@@ -87,7 +90,62 @@ public class GridSystem
                     {
                         Vector2Int currnetGridPosition = new Vector2Int(x, z);
                         gridDict[currnetGridPosition].ref_grid = headGrid;
+                        gridDict[currnetGridPosition].direction = direction;
                         visualizer.UpdateCellData(currnetGridPosition, visualizer.usedCellColor, gridDict[currnetGridPosition].ref_grid.buildingData);
+                    }
+                }
+                break;
+        }
+    }
+
+    public void DeleteBuildingOnGrid(Vector2Int clickedPosition)
+    {
+        GridObject clickedGrid = GetGridObjectByGridPosition(clickedPosition);
+        if(clickedGrid==null || clickedGrid.ref_grid==null) return;
+
+        GridObject headGrid = clickedGrid.ref_grid;
+        Vector2Int startPos = headGrid.gridPosition;
+        Vector2Int buildingSize = headGrid.buildingData.Size;
+        PlacementDirection directionOfHeadGrid = headGrid.direction;
+        switch (directionOfHeadGrid)
+        {
+            case PlacementDirection.UP:
+                for (int z = startPos.y; z < startPos.y + buildingSize.x; z++)
+                {
+                    for (int x = startPos.x; x > startPos.x - buildingSize.y; x--)
+                    {
+                        GridObject gridObj = GetGridObjectByGridPosition(new Vector2Int(x, z)); 
+                        gridObj.ClearGridObjectData();
+                    }
+                }
+                break;
+            case PlacementDirection.DOWN:
+                for (int z = startPos.y; z > startPos.y - buildingSize.x; z--)
+                {
+                    for (int x = startPos.x; x < startPos.x + buildingSize.y; x++)
+                    {
+                        GridObject gridObj = GetGridObjectByGridPosition(new Vector2Int(x, z));
+                        gridObj.ClearGridObjectData();
+                    }
+                }
+                break;
+            case PlacementDirection.LEFT:
+                for (int x = startPos.x; x > startPos.x - buildingSize.x; x--)
+                {
+                    for (int z = startPos.y; z > startPos.y - buildingSize.y; z--)
+                    {
+                        GridObject gridObj = GetGridObjectByGridPosition(new Vector2Int(x, z));
+                        gridObj.ClearGridObjectData();
+                    }
+                }
+                break;
+            case PlacementDirection.RIGHT:
+                for (int x = startPos.x; x < startPos.x + buildingSize.x; x++)
+                {
+                    for (int z = startPos.y; z < startPos.y + buildingSize.y; z++)
+                    {
+                        GridObject gridObj = GetGridObjectByGridPosition(new Vector2Int(x, z));
+                        gridObj.ClearGridObjectData();
                     }
                 }
                 break;

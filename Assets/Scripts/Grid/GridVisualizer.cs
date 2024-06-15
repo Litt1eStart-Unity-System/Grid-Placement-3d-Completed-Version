@@ -315,6 +315,11 @@ public class GridVisualizer : MonoBehaviour
         }
     }
 
+    public void ClearOverlayModel()
+    {
+        Destroy(currentOverlayModel);
+    }
+
     private void AdjustOverlayModelPositionAndRotation(GameObject overlayModel, Vector3 position, PlacementDirection direction, float cellSize)
     {
         Vector3 adjustedPosition = position;

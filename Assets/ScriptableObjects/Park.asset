@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c0a0afff7e66740bdcfb8e253cc8c8, type: 3}
   m_Name: Park
   m_EditorClassIdentifier: 
-  Size: {x: 0, y: 0}
-  DisplayName: 
-  prefab: {fileID: 0}
-  overlayPrefab: {fileID: 0}
+  Size: {x: 10, y: 10}
+  DisplayName: Park
+  prefab: {fileID: 1507984366448792855, guid: f436673f9eccf6049a82eca87cb9a7e4, type: 3}
+  overlayPrefab: {fileID: 7449789371933239530, guid: a9ddf198fe2caf24ea42de766c21f236,
+    type: 3}
