@@ -15,9 +15,15 @@ public class BuildingOverlayModel : MonoBehaviour
     private void Start()
     {
         defaultColor = GameManager.Instance.defaultOverlayColor;
-        errorColor  = GameManager.Instance.errorOverlayColor;
+        errorColor = GameManager.Instance.errorOverlayColor;
     }
+
     private void Update()
+    {
+        UpdatePosition();
+    }
+
+    private void UpdatePosition()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
@@ -40,6 +46,7 @@ public class BuildingOverlayModel : MonoBehaviour
                     hitPosition = new Vector3(hitInfo.point.x + modelThreshold, .5f, hitInfo.point.z - modelThreshold);
                     break;
             }
+            Debug.Log($"Hit Position: {hitInfo.point}, Adjusted Position: {hitPosition}, Direction: {direction}");
             transform.position = hitPosition;
         }
     }
@@ -48,11 +55,14 @@ public class BuildingOverlayModel : MonoBehaviour
     {
         this.direction = direction;
         this.cellSize = cellSize;
+        Debug.Log($"SetBuildingModelInfo called with Direction: {direction}, CellSize: {cellSize}");
+        UpdatePosition();
     }
 
     public void SetOverlayShader(bool canBuild)
     {
         Color color = canBuild ? defaultColor : errorColor;
+        Debug.Log("OverlayColor: " + canBuild);
         transform.GetComponentInChildren<MeshRenderer>().material.SetColor("_Tint", color);
         transform.GetComponentInChildren<MeshRenderer>().material.SetColor("_FresnalColor", color);
     }

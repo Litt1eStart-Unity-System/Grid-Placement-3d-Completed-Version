@@ -126,6 +126,7 @@ public class GridSystem
 
         return true;
     }
+
     private void IterateGridPositionsByPlacementDirection(Vector2Int startPos, Vector2Int buildingSize, PlacementDirection direction, Action<int, int> action)
     {
         switch (direction)
@@ -193,8 +194,6 @@ public class GridSystem
         }
     }
 
-    public bool IsGridPositionOutOfRange(Vector2Int gridPosition)
-    {
-        return gridDict.ContainsKey(gridPosition);
-    }
+    public bool IsGridPositionOutOfRange(Vector2Int gridPosition) => !gridDict.ContainsKey(gridPosition);
+    
 }

@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         gridSystem = new GridSystem(gridWidth, gridDepth, cellSize, visualizer);
+        direction = PlacementDirection.UP;
     }
 
     public void SetBuildingData(BuildingSO buildingData)
@@ -37,7 +38,6 @@ public class GameManager : MonoBehaviour
     public void ChangeBuldingData(BuildingSO newBuilding)
     {
         GameManager.Instance.gridSystem.Visualizer.isSpawnNewOverlayModel = true;
-        GameManager.Instance.direction = PlacementDirection.RIGHT;
         SetBuildingData(newBuilding);
     }
 }
