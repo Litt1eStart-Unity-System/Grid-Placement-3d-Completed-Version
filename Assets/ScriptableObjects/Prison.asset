@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c0a0afff7e66740bdcfb8e253cc8c8, type: 3}
   m_Name: Prison
   m_EditorClassIdentifier: 
-  Size: {x: 0, y: 0}
-  DisplayName: 
-  prefab: {fileID: 0}
-  overlayPrefab: {fileID: 0}
+  Size: {x: 1, y: 1}
+  DisplayName: Straight Road
+  prefab: {fileID: 3252686798675782265, guid: da4264aebbfe74e4d900f8069770f71c, type: 3}
+  overlayPrefab: {fileID: 6921160419469175342, guid: 07f732102c2fdfc4cb7f19bbe6050b41,
+    type: 3}

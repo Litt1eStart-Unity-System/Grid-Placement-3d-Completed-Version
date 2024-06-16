@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -730,7 +730,7 @@ MonoBehaviour:
   gridWidth: 100
   gridDepth: 100
   cellSize: 10
-  isDrawnGrid: 0
+  isDrawnGrid: 1
   defaultOverlayColor: {r: 0.13907148, g: 0.8962264, b: 0, a: 0.54901963}
   errorOverlayColor: {r: 1, g: 0, b: 0, a: 0.54901963}
   buildingData: {fileID: 0}
@@ -840,7 +840,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5683706, y: 0.000000015012274, z: -0.000000010370464, w: 0.82277274}
+  m_LocalRotation: {x: 0.5683706, y: -0.000000015827938, z: 0.000000010933925, w: 0.82277274}
   m_LocalPosition: {x: 19.3, y: 100, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1084,7 +1084,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 380600526}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5683706, y: 0.000000015012274, z: -0.000000010370464, w: 0.82277274}
+  m_LocalRotation: {x: 0.5683706, y: -0.000000015827938, z: 0.000000010933925, w: 0.82277274}
   m_LocalPosition: {x: 19.3, y: 100, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

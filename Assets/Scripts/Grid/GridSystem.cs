@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,6 @@ using UnityEngine;
 public class GridSystem
 {
     private Dictionary<Vector2Int, GridObject> gridDict;
-    
     private GridVisualizer visualizer;
     private float cellSize;
 
@@ -45,57 +45,16 @@ public class GridSystem
         GridObject headGrid = GetGridObjectByGridPosition(startPos);
         headGrid.buildingData = buildingData;
         visualizer.SpawnBuildingModel(startPos, buildingData, direction);
-        switch (direction)
+
+        IterateGridPositionsByPlacementDirection(startPos, buildingSize, direction, (x, z) =>
         {
-            case PlacementDirection.UP:
-                for (int z = startPos.y; z < startPos.y + buildingSize.x; z++)
-                {
-                    for (int x = startPos.x; x > startPos.x - buildingSize.y; x--)
-                    {
-                        Vector2Int currnetGridPosition = new Vector2Int(x, z);
-                        gridDict[currnetGridPosition].ref_grid = headGrid;
-                        gridDict[currnetGridPosition].direction = direction;
-                        visualizer.UpdateCellData(currnetGridPosition, visualizer.usedCellColor, gridDict[currnetGridPosition].ref_grid.buildingData);
-                    }
-                }
-                break;
-            case PlacementDirection.DOWN:
-                for (int z = startPos.y; z > startPos.y - buildingSize.x; z--)
-                {
-                    for (int x = startPos.x; x < startPos.x + buildingSize.y; x++)
-                    {
-                        Vector2Int currnetGridPosition = new Vector2Int(x, z);
-                        gridDict[currnetGridPosition].ref_grid = headGrid;
-                        gridDict[currnetGridPosition].direction = direction;
-                        visualizer.UpdateCellData(currnetGridPosition, visualizer.usedCellColor, gridDict[currnetGridPosition].ref_grid.buildingData);
-                    }
-                }
-                break;
-            case PlacementDirection.LEFT:
-                for (int x = startPos.x; x > startPos.x - buildingSize.x; x--)
-                {
-                    for (int z = startPos.y; z > startPos.y - buildingSize.y; z--)
-                    {
-                        Vector2Int currnetGridPosition = new Vector2Int(x, z);
-                        gridDict[currnetGridPosition].ref_grid = headGrid;
-                        gridDict[currnetGridPosition].direction = direction;
-                        visualizer.UpdateCellData(currnetGridPosition, visualizer.usedCellColor, gridDict[currnetGridPosition].ref_grid.buildingData);
-                    }
-                }
-                break;
-            case PlacementDirection.RIGHT:
-                for (int x = startPos.x; x < startPos.x + buildingSize.x; x++)
-                {
-                    for (int z = startPos.y; z < startPos.y + buildingSize.y; z++)
-                    {
-                        Vector2Int currnetGridPosition = new Vector2Int(x, z);
-                        gridDict[currnetGridPosition].ref_grid = headGrid;
-                        gridDict[currnetGridPosition].direction = direction;
-                        visualizer.UpdateCellData(currnetGridPosition, visualizer.usedCellColor, gridDict[currnetGridPosition].ref_grid.buildingData);
-                    }
-                }
-                break;
-        }
+            Vector2Int currnetGridPosition = new Vector2Int(x, z);
+            gridDict[currnetGridPosition].ref_grid = headGrid;
+            gridDict[currnetGridPosition].direction = direction;
+            visualizer.UpdateCellData(currnetGridPosition, visualizer.usedCellColor, gridDict[currnetGridPosition].ref_grid.buildingData);
+        });
+
+       
     }
 
     public void DeleteBuildingOnGrid(Vector2Int clickedPosition)
@@ -107,49 +66,12 @@ public class GridSystem
         Vector2Int startPos = headGrid.gridPosition;
         Vector2Int buildingSize = headGrid.buildingData.Size;
         PlacementDirection directionOfHeadGrid = headGrid.direction;
-        switch (directionOfHeadGrid)
+
+        IterateGridPositionsByPlacementDirection(startPos, buildingSize, directionOfHeadGrid, (x, z) =>
         {
-            case PlacementDirection.UP:
-                for (int z = startPos.y; z < startPos.y + buildingSize.x; z++)
-                {
-                    for (int x = startPos.x; x > startPos.x - buildingSize.y; x--)
-                    {
-                        GridObject gridObj = GetGridObjectByGridPosition(new Vector2Int(x, z)); 
-                        gridObj.ClearGridObjectData();
-                    }
-                }
-                break;
-            case PlacementDirection.DOWN:
-                for (int z = startPos.y; z > startPos.y - buildingSize.x; z--)
-                {
-                    for (int x = startPos.x; x < startPos.x + buildingSize.y; x++)
-                    {
-                        GridObject gridObj = GetGridObjectByGridPosition(new Vector2Int(x, z));
-                        gridObj.ClearGridObjectData();
-                    }
-                }
-                break;
-            case PlacementDirection.LEFT:
-                for (int x = startPos.x; x > startPos.x - buildingSize.x; x--)
-                {
-                    for (int z = startPos.y; z > startPos.y - buildingSize.y; z--)
-                    {
-                        GridObject gridObj = GetGridObjectByGridPosition(new Vector2Int(x, z));
-                        gridObj.ClearGridObjectData();
-                    }
-                }
-                break;
-            case PlacementDirection.RIGHT:
-                for (int x = startPos.x; x < startPos.x + buildingSize.x; x++)
-                {
-                    for (int z = startPos.y; z < startPos.y + buildingSize.y; z++)
-                    {
-                        GridObject gridObj = GetGridObjectByGridPosition(new Vector2Int(x, z));
-                        gridObj.ClearGridObjectData();
-                    }
-                }
-                break;
-        }
+            GridObject gridObj = GetGridObjectByGridPosition(new Vector2Int(x, z));
+            gridObj.ClearGridObjectData();
+        });
     }
 
     private bool CanBuild(Vector2Int startPos, Vector2Int buildingSize, PlacementDirection direction)
@@ -204,10 +126,53 @@ public class GridSystem
 
         return true;
     }
+    private void IterateGridPositionsByPlacementDirection(Vector2Int startPos, Vector2Int buildingSize, PlacementDirection direction, Action<int, int> action)
+    {
+        switch (direction)
+        {
+            case PlacementDirection.UP:
+                for (int z = startPos.y; z < startPos.y + buildingSize.x; z++)
+                {
+                    for (int x = startPos.x; x > startPos.x - buildingSize.y; x--)
+                    {
+                        action(x, z);
+                    }
+                }
+                break;
+            case PlacementDirection.DOWN:
+                for (int z = startPos.y; z > startPos.y - buildingSize.x; z--)
+                {
+                    for (int x = startPos.x; x < startPos.x + buildingSize.y; x++)
+                    {
+                        action(x, z);
+                    }
+                }
+                break;
+            case PlacementDirection.LEFT:
+                for (int x = startPos.x; x > startPos.x - buildingSize.x; x--)
+                {
+                    for (int z = startPos.y; z > startPos.y - buildingSize.y; z--)
+                    {
+                        action(x, z);
+                    }
+                }
+                break;
+            case PlacementDirection.RIGHT:
+                for (int x = startPos.x; x < startPos.x + buildingSize.x; x++)
+                {
+                    for (int z = startPos.y; z < startPos.y + buildingSize.y; z++)
+                    {
+                        action(x, z);
+                    }
+                }
+                break;
+        }
+    }
+
     public GridObject GetGridObjectByGridPosition(Vector2Int gridPosition)
     {
-        if(gridDict.ContainsKey(gridPosition))
-            return gridDict[gridPosition];
+        if(gridDict.TryGetValue(gridPosition, out GridObject gridObject))
+            return gridObject;
 
         return null;
     }
@@ -230,9 +195,6 @@ public class GridSystem
 
     public bool IsGridPositionOutOfRange(Vector2Int gridPosition)
     {
-        if(gridPosition.x < 0 || gridPosition.y < 0 || gridPosition.x > GameManager.Instance.gridWidth || gridPosition.y > GameManager.Instance.gridDepth)
-            return true;
-
-        return false;
+        return gridDict.ContainsKey(gridPosition);
     }
 }

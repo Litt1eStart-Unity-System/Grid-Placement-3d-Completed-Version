@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c0a0afff7e66740bdcfb8e253cc8c8, type: 3}
   m_Name: School
   m_EditorClassIdentifier: 
-  Size: {x: 0, y: 0}
-  DisplayName: 
-  prefab: {fileID: 0}
-  overlayPrefab: {fileID: 0}
+  Size: {x: 1, y: 1}
+  DisplayName: Corner Road
+  prefab: {fileID: 174138259129979059, guid: e95b8c4efa92f4d45a6659e7d2cce1d4, type: 3}
+  overlayPrefab: {fileID: 6029781618831032977, guid: b653c7bea99298c4792e67dddd341858,
+    type: 3}

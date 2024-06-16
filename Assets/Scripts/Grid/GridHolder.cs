@@ -51,6 +51,7 @@ public class GridHolder : MonoBehaviour
                     Vector3 hitPosition = hitInfo.point;
                     Vector2Int hitGridPosition = gridSystem.GetGridPositionFromWorldPosition(hitPosition);
 
+                    Debug.Log("OverlayPrefab name: " + buildingData.overlayPrefab.name);
                     visualizer.SpawnOverlayModel(hitPosition, buildingData, direction);
                     visualizer.VisualizeOverlayGridCell(hitGridPosition, buildingData, direction, true);
                 }
