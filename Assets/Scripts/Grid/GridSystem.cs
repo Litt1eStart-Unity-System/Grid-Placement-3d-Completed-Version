@@ -8,7 +8,6 @@ public class GridSystem
     private Dictionary<Vector2Int, GridObject> gridDict;
     private GridVisualizer visualizer;
     private float cellSize;
-
     public GridVisualizer Visualizer => visualizer;
     public Dictionary<Vector2Int, GridObject> GridDict => gridDict;
     public int GridSize => gridDict.Count;

@@ -32,7 +32,6 @@ public class GridHolder : MonoBehaviour
 
     private void Start()
     {
-        //gridSystem = new GridSystem(GameManager.Instance.gridWidth, GameManager.Instance.gridDepth, GameManager.Instance.cellSize, visualizer);
         gridSystem = GameManager.Instance.gridSystem;
         visualizer = gridSystem.Visualizer;
     }
@@ -53,8 +52,6 @@ public class GridHolder : MonoBehaviour
                 {
                     Vector3 hitPosition = hitInfo.point;
                     Vector2Int hitGridPosition = gridSystem.GetGridPositionFromWorldPosition(hitPosition);
-
-                    Debug.Log("OverlayPrefab name: " + buildingData.overlayPrefab.name);
                     visualizer.SpawnOverlayModel(hitPosition, buildingData, direction);
                     visualizer.VisualizeOverlayGridCell(hitGridPosition, buildingData, direction, true);
                 }
@@ -68,7 +65,6 @@ public class GridHolder : MonoBehaviour
                 {
                     if (Physics.Raycast(ray, out hitInfo))
                     {
-                        Debug.Log("Current Direction" + direction);
                         Vector2Int startPos = gridSystem.GetGridPositionFromWorldPosition(hitInfo.point);
                         gridSystem.PlaceDataOnGrid(startPos, buildingData, direction);
                     }
@@ -94,31 +90,28 @@ public class GridHolder : MonoBehaviour
     }
     private void ChangePlacementDirection()
     {
-        if (placementIndex >= 4)
-            placementIndex = 0;
 
-        switch (placementIndex)
+        switch (direction)
         {
-            case 0:
-                GameManager.Instance.SetPlacementDirection(PlacementDirection.RIGHT);
+            case PlacementDirection.RIGHT:
+                direction = PlacementDirection.DOWN;
                 break;
-            case 1:
-                GameManager.Instance.SetPlacementDirection(PlacementDirection.DOWN);
+            case PlacementDirection.DOWN:
+                direction = PlacementDirection.LEFT;
                 break;
-            case 2:
-                GameManager.Instance.SetPlacementDirection(PlacementDirection.LEFT);
+            case PlacementDirection.LEFT:
+                direction = PlacementDirection.UP;
                 break;
-            case 3:
-                GameManager.Instance.SetPlacementDirection(PlacementDirection.UP);
+            case PlacementDirection.UP:
+                direction = PlacementDirection.RIGHT;
                 break;
             default:
                 break;
         }
 
-        direction = GameManager.Instance.direction;
-        Debug.Log("Changed Direction to: " + direction);
+        // Update the visualizer with the new direction
         visualizer.ChangePlacementDirectionOfOverlayModel(direction);
-        placementIndex++;
+        GameManager.Instance.SetPlacementDirection(direction);
     }
 
     public static bool IsPointerOverUIObject()
