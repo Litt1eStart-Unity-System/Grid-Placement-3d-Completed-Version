@@ -58,31 +58,6 @@ public class GridVisualizer : MonoBehaviour
         }
     }
 
-
-    public void VisualizeDragPath(List<Vector2Int> path, BuildingSO buildingSO, PlacementDirection direction) 
-    {
-        ClearDragPath();
-
-        foreach (Vector2Int position in path)
-        {
-            if (!dragPathCells.ContainsKey(position))
-            {
-                GameObject cell = CreateDragPathCell(position, buildingSO, direction);
-                dragPathCells[position] = cell;
-            }
-        }
-
-    }
-
-    private GameObject CreateDragPathCell(Vector2Int gridPosition, BuildingSO buildingSO, PlacementDirection direction)
-    {
-        Vector3 worldPosition = gridSystem.GetWorldPositionFromGridPosition(gridPosition);
-        GameObject cell = Instantiate(buildingSO.overlayPrefab, worldPosition, Quaternion.identity);
-        cell.GetComponent<BuildingOverlayModel>().SetBuildingModelInfo(direction, cellSize);
-        AdjustOverlayModelRotation(cell, worldPosition, direction, cellSize);
-        return cell;
-    }
-
     public void ClearDragPath()
     {
         foreach (var cell in dragPathCells.Values)
@@ -380,27 +355,4 @@ public class GridVisualizer : MonoBehaviour
 
         overlayModel.transform.position = adjustedPosition;
     }
-
-    private void AdjustOverlayModelRotation(GameObject overlayModel, Vector3 position, PlacementDirection direction, float cellSize)
-    {
-        Vector3 adjustedPosition = position;
-
-        switch (direction)
-        {
-            case PlacementDirection.RIGHT:
-                overlayModel.transform.rotation = Quaternion.Euler(0, 0, 0);
-                break;
-            case PlacementDirection.DOWN:
-                overlayModel.transform.rotation = Quaternion.Euler(0, 90, 0);
-                break;
-            case PlacementDirection.LEFT:
-                overlayModel.transform.rotation = Quaternion.Euler(0, 180, 0);
-                break;
-            case PlacementDirection.UP:
-                overlayModel.transform.rotation = Quaternion.Euler(0, -90, 0);
-                break;
-        }
-
-    }
-
 }
