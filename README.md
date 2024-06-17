@@ -1,8 +1,13 @@
+
+
+
 # Unity Grid Placement 3D - Plcement, Roate, Delete, Visualize
 
 ## Overview
 This project is a comprehensive implementation of a 3D grid placement system. It provides dynamic and precise placement of objects within a 3D space, leveraging a grid-based system to ensure accuracy and alignment. This tool can be particularly useful in game development, architectural visualization, and any application requiring spatial organization.
 
+### Toggle off Cell Visualizing (Preview)
+https://github.com/Litt1eStar/Grid-Placement-3d-Completed-Version/assets/90139527/21060a78-17d7-43a3-8548-92d5c7084549
 
 ## Features
 - **3D Grid Visualization**: A clear and adjustable 3D grid that provides a reference for object placement.
@@ -52,6 +57,9 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE.txt) f
 ## Authors
 - **Litt1eStar**
 
+## Asset Source
+- **Road Model**: https://assetstore.unity.com/packages/3d/environments/roadways/modular-lowpoly-track-roads-free-205188
+- **Building Model**: https://assetstore.unity.com/packages/3d/props/exterior/low-poly-houses-free-pack-243926
 ## Acknowledgements
 This project has been a part of my learning and practice in game system creation. Feel free to ask anything you want to know.
 
