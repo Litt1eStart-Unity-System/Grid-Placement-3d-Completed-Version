@@ -58,6 +58,8 @@ public class GridSystem
 
     public void DeleteBuildingOnGrid(Vector2Int clickedPosition)
     {
+        if(IsGridPositionOutOfRange(clickedPosition)) return;
+
         GridObject clickedGrid = GetGridObjectByGridPosition(clickedPosition);
         if(clickedGrid==null || clickedGrid.ref_grid==null) return;
 
@@ -75,6 +77,8 @@ public class GridSystem
 
     private bool CanBuild(Vector2Int startPos, Vector2Int buildingSize, PlacementDirection direction)
     {
+        if(IsGridPositionOutOfRange(startPos)) return false;
+
         switch (direction)
         {
             case PlacementDirection.UP:
@@ -183,14 +187,10 @@ public class GridSystem
 
     public Vector3 GetWorldPositionFromGridPosition(Vector2Int gridPosition)
     {
-        if (GridDict.ContainsKey(gridPosition))
-        {
+        if (!IsGridPositionOutOfRange(gridPosition))
             return new Vector3(gridPosition.x, 0, gridPosition.y) * cellSize;
-        }
-        else
-        {
-            return new Vector3(-1, -1, -1);
-        }
+        
+        return new Vector3(-1, -1, -1);
     }
 
     public bool IsGridPositionOutOfRange(Vector2Int gridPosition) => !gridDict.ContainsKey(gridPosition);
