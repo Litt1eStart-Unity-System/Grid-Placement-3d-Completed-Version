@@ -1,10 +1,12 @@
 
-
-
 # Unity Grid Placement 3D - Plcement, Roate, Delete, Visualize
 
 ## Overview
 This project is a comprehensive implementation of a 3D grid placement system. It provides dynamic and precise placement of objects within a 3D space, leveraging a grid-based system to ensure accuracy and alignment. This tool can be particularly useful in game development, architectural visualization, and any application requiring spatial organization.
+
+### Toggle on Cell Visualizing (Preview)
+
+https://github.com/Litt1eStar/Grid-Placement-3d-Completed-Version/assets/90139527/52281b6a-bbfc-495e-9e58-5e8835f4ebd1
 
 ### Toggle off Cell Visualizing (Preview)
 https://github.com/Litt1eStar/Grid-Placement-3d-Completed-Version/assets/90139527/21060a78-17d7-43a3-8548-92d5c7084549
